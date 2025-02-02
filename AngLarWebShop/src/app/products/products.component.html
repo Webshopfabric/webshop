@@ -1,0 +1,36 @@
+<!-- <p>products works!</p> -->
+
+
+
+<div class="gallery">
+  <div class="container-fluid mt-4text-center text-warning">
+    <h2 class="fw-bold">Product Gallery</h2>
+    <p>Explore our wide range of high-quality items.</p>
+
+    <div class="cards">
+      <div class="card" *ngFor="let product of products">
+        <img [src]="product.image" alt="{{ product.title }}" class="card-img" />
+        <div class="card-body">
+          <h5 class="card-title">{{ product.title }}</h5>
+          <p class="card-text"><strong>Price: {{ product.price | currency }}</strong></p>
+          <!-- <p *ngIf="itemAdded" class="text-success">✅ Added to cart!</p> -->
+          <button (click)="addToCart(product);showToast()" class="btn btn-warning">
+            <i class="bi bi-cart"></i> Add to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Toast üzenet -->
+<div *ngIf="show" class="toast-container position-fixed top-0 end-0 mx-auto p-5" style="z-index: 1050;margin-top: -40px;width:220px;">
+  <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+
+    <div class="toast-body">
+      Added to Cart.
+    </div>
+  </div>
+</div>

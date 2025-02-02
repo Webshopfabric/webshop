@@ -1,0 +1,20 @@
+<div class="gallery text-center">
+
+  <!-- Cats Section -->
+  <h2 class="text-warning fw-bold mb-4">Cats</h2>
+  <div class="row g-3 justify-content-center">
+    <div *ngFor="let catImage of catImages" class="col-12 col-md-4 col-lg-2">
+      <!-- class="col-3 col-sm-2 col-md-1" -->
+      <img [src]="catImage" alt="Cat" loading="lazy" class="animal-image rounded shadow">
+    </div>
+  </div>
+
+  <!-- Dogs Section -->
+  <h2 class="text-warning fw-bold mt-5 mb-4">Dogs</h2>
+  <div class="row g-3 justify-content-center">
+    <div *ngFor="let dogImage of dogImages" class="col-12 col-md-4 col-lg-3">
+      <img [src]="dogImage" alt="Dog" loading="lazy" class="img-fluid rounded shadow">
+    </div>
+  </div>
+
+</div>

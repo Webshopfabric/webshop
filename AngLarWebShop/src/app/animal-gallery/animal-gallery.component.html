@@ -1,0 +1,15 @@
+<!-- <p>animal-gallery works!</p> -->
+
+<div class="gallery">
+
+  <h2 class="text-warning fw-bold" >Cats</h2>
+  <div class="images">
+    <img *ngFor="let catImage of catImages" [src]="catImage" alt="Cat" loading="lazy" class="animal-image">
+  </div>
+  <h2 class="text-warning fw-bold">Dogs</h2>
+  <div class="images">
+    <img *ngFor="let dogImage of dogImages" [src]="dogImage" alt="Dog" loading="lazy" class="animal-image">
+  </div>
+
+
+</div>

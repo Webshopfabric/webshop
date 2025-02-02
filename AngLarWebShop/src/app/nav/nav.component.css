@@ -1,0 +1,9 @@
+.navbar-nav .nav-link {
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: white !important;  /* Szöveg színe */
+  background-color: black !important; /* Háttér színe */
+  border-radius: 5px;
+}

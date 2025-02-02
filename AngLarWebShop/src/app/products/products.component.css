@@ -1,0 +1,83 @@
+.gallery {
+  text-align: center;
+  padding: 1px;
+}
+
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 100%;
+  max-width: 300px;
+  background-color: aliceblue;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.card-img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.card-img:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .cards {
+    flex-direction: column;
+    align-items: center;
+  }
+  .card {
+    max-width: 99% !important;
+  }
+}
+
+
+.btn-warning {
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-warning:hover {
+  background-color: black !important;
+  color: white !important;
+  transform: scale(1.1);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Árnyék */
+}
+
+
+.product-card {
+  position: relative; /* A kártyán belül való pozicionálás alapja */
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 8px;
+}
+
+.toast-container {
+  position: absolute; /* A kártyához viszonyítva pozicionáljuk */
+  top: 120%;          /* A kártya alá helyezzük (ez állítható) */
+  left: 0;
+  right: 0;
+  margin: 0 auto;     /* Középre igazítjuk */
+  width: 200px;       /* Állítható szélesség */
+  z-index: 10;        /* A toast a kártya felett legyen */
+}
+
+
+
