@@ -14,12 +14,20 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->foreignId('category_id')->constrained()->onDelete('cascade'); // Kategória kapcsolat
+            $table->string('title');
+            $table->string('slug')->unique(); // SEO-barát URL
             $table->text('description')->nullable();
             $table->decimal('price',10,2);
+            $table->decimal('discount_price', 10, 2)->nullable(); // Akciós ár
             $table->integer('stock');
             $table->string('image_url')->nullable();
             $table->integer('stars')->default(0);
+            $table->boolean('is_active')->default(true); // Elérhetőség
             $table->timestamps();
+
+            // Indexek a gyorsabb kereséshez
+            $table->index('category_id');
+            $table->index('title');
         });
     }
 
