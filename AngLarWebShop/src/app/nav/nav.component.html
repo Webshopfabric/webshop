@@ -1,42 +1,42 @@
 <!-- <p>nav works!</p> -->
 
 
-<nav class="navbar navbar-expand-lg bg-warning  sticky-top"> <!-- fixed-top mobil esetén?-->
-  <div class="container-fluid container-tertiary"> <!-- -fluid tertiary-->
-
+<nav class="navbar navbar-expand-lg bg-warning sticky-top">
+  <div class="container-fluid container-tertiary">
     <a class="navbar-brand fs-4 fw-bold mx-auto col" routerLink="/">AngLar WebShop</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse " id="navbarNav">
-      <ul class="navbar-nav col ">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav col">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="/home" routerLinkActive="active">Home</a>
+          <a class="nav-link active" aria-current="page" routerLink="/home" routerLinkActive="active" (click)="closeMenu()">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-black" routerLink="/categories" routerLinkActive="active">Categories</a>
+          <a class="nav-link text-black" routerLink="/categories" routerLinkActive="active" (click)="closeMenu()">Categories</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-black" routerLink="/products" routerLinkActive="active">Products</a>
+          <a class="nav-link text-black" routerLink="/products" routerLinkActive="active" (click)="closeMenu()">Products</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-black" routerLink="/register" routerLinkActive="active">Register</a>
+          <a class="nav-link text-black" routerLink="/register" routerLinkActive="active" (click)="closeMenu()">Register</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-black" routerLink="/login" routerLinkActive="active">Login</a>
+          <a class="nav-link text-black" routerLink="/login" routerLinkActive="active" (click)="closeMenu()">Login</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-black" routerLink="/about" routerLinkActive="active">About</a>
+          <a class="nav-link text-black" routerLink="/about" routerLinkActive="active" (click)="closeMenu()">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-black" routerLink="/contact" routerLinkActive="active">Contact</a>
+          <a class="nav-link text-black" routerLink="/contact" routerLinkActive="active" (click)="closeMenu()">Contact</a>
+        </li>
         <li class="nav-item">
-          <a class="nav-link text-black" routerLink="/pets" routerLinkActive="active">Pets</a>
+          <a class="nav-link text-black" routerLink="/pets" routerLinkActive="active" (click)="closeMenu()">Pets</a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-black text-end ms-auto fs-3 position-relative" routerLink="/cart"
-            routerLinkActive="active">
+            routerLinkActive="active" (click)="closeMenu()">
             <i class="bi bi-cart"></i> Cart
             <span *ngIf="cartItemCount > 0"
               class="badge bg-danger position-absolute top-0 start-100 px-1 translate-middle rounded-pill">
@@ -45,7 +45,6 @@
           </a>
         </li>
       </ul>
-
     </div>
   </div>
 </nav>

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../cart.service';
+
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
-  styleUrl: './nav.component.css'
+  styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
   cartItemCount: number = 0;
@@ -23,9 +24,16 @@ export class NavComponent implements OnInit {
     this.cartItemCount = this.cartService.getCartItemCount();
   }
 
-
+  // Menü bezárása mobil nézetben
+  closeMenu() {
+    if (window.innerWidth <= 768) {  // Csak mobil nézetben
+      const collapseElement = document.getElementById('navbarNav');
+      if (collapseElement) {
+        collapseElement.classList.remove('show');  // Bezárja a menüt
+      }
+    }
+  }
 }
-
 
 
 
