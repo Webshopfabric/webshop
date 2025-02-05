@@ -8,7 +8,8 @@ import { Observable, of } from 'rxjs';
 
 export class ProductService {
   // private apiUrl = 'https://fakestoreapi.com/products';  //?limit=10
-  private apiUrl = 'http://localhost:8000/api/products';  //?limit=10
+  private apiUrl2 = 'http://localhost:8000/api/products';  //?limit=10
+  private apiUrl = 'http://localhost/test/AngLarBackend/public/api/products';  //?limit=10
 
   constructor(private http: HttpClient) {}
 
