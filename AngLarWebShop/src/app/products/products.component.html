@@ -9,12 +9,13 @@
 
     <div class="cards">
       <div class="card" *ngFor="let product of products">
-        <img [src]="product.image" alt="{{ product.title }}" class="card-img" />
+        <!-- *ngIf="product.image_url" view only exists-->
+        <img *ngIf="product.image_url" [src]="product.image_url" alt="{{ product.title }}" class="card-img" />
         <div class="card-body">
 
           <h5 class="card-catergory">category: {{ product.category }}</h5>
           <h5 class="card-title">title: {{ product.title }}</h5>
-          <p class="card-text"><strong>Price: {{ product.price | currency }}</strong></p>
+          <p class="card-text"><strong>Price: {{ product.price}} Ft</strong></p>
           <!-- <p *ngIf="itemAdded" class="text-success">✅ Added to cart!</p> -->
           <button (click)="addToCart(product);showToast()" class="btn btn-warning">
             <i class="bi bi-cart"></i> Add to Cart
