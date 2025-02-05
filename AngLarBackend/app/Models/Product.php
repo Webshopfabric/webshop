@@ -5,25 +5,50 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-
 class Product extends Model
 {
     use HasFactory;
 
+    // A tábla neve, ha nem az alapértelmezett 'products' tábla lenne
+    protected $table = 'products';
+
+    // Azok a mezők, amik tömeges hozzárendeléssel (mass assignment) kitölthetők
     protected $fillable = [
-        'category_id', 'name', 'description',
-        'price', 'stock', 'image'
+        'category_id',
+        'title',
+        'slug',
+        'description',
+        'price',
+        'discount_price',
+        'stock',
+        'image_url',
+        'stars',
+        'is_active',
     ];
 
-    // Kapcsolat: egy termék több rendeléshez tartozhat
-    public function orders()
+    // A slug mező automatikus generálásához (SEO barát URL)
+    public static function boot()
     {
-        return $this->belongsToMany(Order::class, 'order_items')
-                    ->withPivot('quantity', 'price_at_time_of_order') // Pivot adatok
-                    ->withTimestamps(); // Automatikus időbélyegek
+        parent::boot();
+
+        static::saving(function ($product) {
+            // Ha nincs megadva slug, automatikusan generálunk egyet
+            if (empty($product->slug)) {
+                $product->slug = \Str::slug($product->title);
+            }
+        });
+    }
+
+    // Kapcsolat a kategóriával
+    public function category()
+    {
+        return $this->belongsTo(Category::class)->select('id', 'title'); // Csak az id-t és a title-t kérjük
+        // return $this->belongsTo(Category::class);
+    }
+
+    // Akciós ár ellenőrzése
+    public function hasDiscount()
+    {
+        return $this->discount_price !== null && $this->discount_price < $this->price;
     }
 }
-
-
-
-

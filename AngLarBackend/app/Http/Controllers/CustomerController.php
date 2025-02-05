@@ -112,6 +112,9 @@ class CustomerController extends Controller
     //     ]);
     // }
 
+
+
+
     public function getAllCustomers(Request $request)
 {
     $query = Customer::query();

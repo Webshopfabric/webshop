@@ -2,70 +2,80 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Category;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-     // Létrehozni új terméket
-     public function create()
-     {
-         return view('products.create');
-     }
+    // Termékek listázása
+    public function index()
+    {
+        $products = Product::with('category')->paginate(10); // Kategóriával együtt
+        return view('products.index', compact('products'));
+    }
 
-     // Az új termék mentése
-     public function store(Request $request)
-     {
-         $request->validate([
-             'name' => 'required|max:255',
-             'price' => 'required|numeric',
-             'stock' => 'required|integer'
-         ]);
+    // Új termék létrehozása
+    public function create()
+    {
+        $categories = Category::all(); // Kategóriák betöltése
+        return view('products.create', compact('categories'));
+    }
 
-         Product::create([
-             'name' => $request->name,
-             'price' => $request->price,
-             'stock' => $request->stock,
-         ]);
+    // Termék mentése
+    public function store(Request $request)
+    {
+        $request->validate([
+            'category_id' => 'required|exists:categories,id',
+            'title' => 'required|string|max:255',
+            'slug' => 'required|unique:products,slug',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric',
+            'discount_price' => 'nullable|numeric|lt:price',
+            'stock' => 'required|integer',
+            'image_url' => 'nullable|string',
+            'stars' => 'nullable|integer|between:0,5',
+            'is_active' => 'required|boolean',
+        ]);
 
-         return redirect()->route('products.index');
-     }
+        Product::create($request->all());
 
-     // Az összes termék listázása
-     public function index()
-     {
-         $products = Product::all();
-         return view('products.index', compact('products'));
-     }
+        return redirect()->route('products.index')->with('success', 'Product created successfully!');
+    }
 
-     // Termék szerkesztés
-     public function edit(Product $product)
-     {
-         return view('products.edit', compact('product'));
-     }
+    // Termék szerkesztése
+    public function edit(Product $product)
+    {
+        $categories = Category::all();
+        return view('products.edit', compact('product', 'categories'));
+    }
 
-     // Termék frissítése
-     public function update(Request $request, Product $product)
-     {
-         $request->validate([
-             'name' => 'required|max:255',
-             'price' => 'required|numeric',
-             'stock' => 'required|integer'
-         ]);
+    // Termék frissítése
+    public function update(Request $request, Product $product)
+    {
+        $request->validate([
+            'category_id' => 'required|exists:categories,id',
+            'title' => 'required|string|max:255',
+            'slug' => 'required|unique:products,slug,' . $product->id,
+            'description' => 'nullable|string',
+            'price' => 'required|numeric',
+            'discount_price' => 'nullable|numeric|lt:price',
+            'stock' => 'required|integer',
+            'image_url' => 'nullable|string',
+            'stars' => 'nullable|integer|between:0,5',
+            'is_active' => 'required|boolean',
+        ]);
 
-         $product->update([
-             'name' => $request->name,
-             'price' => $request->price,
-             'stock' => $request->stock,
-         ]);
+        $product->update($request->all());
 
-         return redirect()->route('products.index');
-     }
+        return redirect()->route('products.index')->with('success', 'Product updated successfully!');
+    }
 
-     // Termék törlése
-     public function destroy(Product $product)
-     {
-         $product->delete();
-         return redirect()->route('products.index');
-     }
+    // Termék törlése
+    public function destroy(Product $product)
+    {
+        $product->delete();
+
+        return redirect()->route('products.index')->with('success', 'Product deleted successfully!');
+    }
 }

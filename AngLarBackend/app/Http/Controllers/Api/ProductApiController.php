@@ -10,7 +10,26 @@ class ProductApiController extends Controller
 {
     public function index()
     {
-        return response()->json(Product::all(), 200);
+        $products = Product::with('category:id,title') // Csak az id és title mezőt töltjük be
+            ->get()
+            ->map(function ($product) {
+                return [
+                    'id' => $product->id,
+                    'category_id' => $product->category_id,
+                    'category' => $product->category->title, // Csak a kategória neve
+                    'title' => $product->title,
+                    'slug' => $product->slug,
+                    'description' => $product->description,
+                    'price' => $product->price,
+                    'discount_price' => $product->discount_price,
+                    'stock' => $product->stock,
+                    'image_url' => $product->image_url,
+                    'stars' => $product->stars,
+                    'is_active' => $product->is_active,
+                ];
+            });
+
+        return response()->json($products);
     }
 
     public function show($id)
