@@ -38,8 +38,7 @@
           <a class="nav-link text-black text-end ms-auto fs-3 position-relative" routerLink="/cart"
             routerLinkActive="active" (click)="closeMenu()">
             <i class="bi bi-cart"></i> Cart
-            <span *ngIf="cartItemCount > 0"
-              class="badge bg-danger position-absolute top-0 start-100 px-1 translate-middle rounded-pill">
+            <span *ngIf="cartItemCount > 0" class="badge bg-danger position-absolute top-0 start-100 px-1 translate-middle rounded-pill">
               {{ cartItemCount }}
             </span>
           </a>
