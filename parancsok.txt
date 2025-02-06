@@ -1,0 +1,18 @@
+Angular:
+cd AngLarWebshop
+npm install
+ng serve -o
+
+Laravel:
+cd AngLarBackend
+compose install
+.env:
+mysql
+laravel_10_db
+
+php artisan key:genetate
+php artisan serve
+
+
+
+
