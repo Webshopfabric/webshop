@@ -37,10 +37,10 @@ export class ProductsComponent implements OnInit {
       // alert(`${product.title} has been added to the cart!`);
 
 
-      // this.itemAdded = true;
-      // setTimeout(() => {
-      //   this.itemAdded = false;
-      // }, 500);
+      this.itemAdded = true;
+      setTimeout(() => {
+        this.itemAdded = false;
+      }, 1000);
 
 
     }
