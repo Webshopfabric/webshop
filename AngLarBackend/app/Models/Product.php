@@ -42,7 +42,7 @@ class Product extends Model
     // Kapcsolat a kategóriával
     public function category()
     {
-        return $this->belongsTo(Category::class)->select('id', 'title'); // Csak az id-t és a title-t kérjük
+        return $this->belongsTo(Category::class)->select('id', 'title','description'); // Csak az id-t és a title-t kérjük
         // return $this->belongsTo(Category::class);
     }
 

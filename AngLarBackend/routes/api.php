@@ -41,5 +41,6 @@ Route::get('/customer/{id}', [CustomerController::class, 'show']);
 Route::put('/customer/{id}', [CustomerController::class, 'update']);
 Route::get('/customers', [CustomerController::class, 'getAllCustomers']);
 
-
+use App\Http\Controllers\CategoryController;
+Route::get('/categories', [CategoryController::class, 'index']);
 

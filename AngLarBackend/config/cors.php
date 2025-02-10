@@ -14,9 +14,9 @@ return [
     |
     */
 
-    
+
     'allowed_origins' => ['*'], // Minden domain engedélyezése
-    'allowed_origins' => ['http://localhost:4200'], // Engedélyezed az Angular app domainjét
+    // 'allowed_origins' => ['http://localhost:4200'], // Engedélyezed az Angular app domainjét
     'paths' => ['api/*', 'sanctum/csrf-cookie'], // Engedélyezett útvonalak
     'allowed_methods' => ['*'], // Engedélyezett HTTP metódusok
     'allowed_origins_patterns' => [], // Engedélyezett eredet minták
