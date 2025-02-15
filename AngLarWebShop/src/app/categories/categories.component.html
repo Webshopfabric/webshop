@@ -1,6 +1,39 @@
+<div class="container">
+  <h1>Kategóriák</h1>
+  <ul>
+    <li *ngFor="let category of categories">
+      {{ category.title }}
+    </li>
+  </ul>
+  <button (click)="createCategory()">Új kategória</button>
+  <form *ngIf="creatingCategory">
+    <label>Cím:</label>
+    <input [(ngModel)]="newCategory.title">
+    <label>Leírás:</label>
+    <input [(ngModel)]="newCategory.description">
+    <button (click)="saveCategory()">Mentés</button>
+  </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- <p>category works!</p> -->
 
-<div class="m-5 text-aligment text-center">
+<!-- <div class="m-5 text-aligment text-center">
   <div class="container my-5">
     <h1>Categories</h1>
     <p>Select products</p>
@@ -8,4 +41,4 @@
       {{category.title}}
     </div>
   </div>
-  </div>
+  </div> -->
