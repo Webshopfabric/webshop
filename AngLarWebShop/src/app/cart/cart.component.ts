@@ -1,6 +1,8 @@
 
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../cart.service';
+import { CommonModule,CurrencyPipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-cart',
@@ -10,6 +12,7 @@ import { CartService } from '../cart.service';
 export class CartComponent implements OnInit {
 
   cartItems: any[] = [];
+test_price:number=1234567.45;
 
   constructor(private cartService: CartService) { }
 
@@ -61,7 +64,7 @@ checkout() {
 
   if (confirmed) {
     alert("Please Login.");
-    // this.clearCart(); // Kosár törlése // /api/login
+    // this.clearCart(); // Kosár törlése
   }
 }
 

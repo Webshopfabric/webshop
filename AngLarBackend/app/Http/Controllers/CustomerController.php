@@ -16,7 +16,10 @@ class CustomerController extends Controller
             'email' => 'required|email|unique:customers,email',
             'password' => 'required|string|min:6|confirmed',
             'address' => 'required|string',
-            'phone' => 'nullable|string|max:20'
+            'phone' => 'nullable|string|max:20',
+            'address' => 'required|string',
+            'role' => 'required|string|in:customer,admin',
+
         ],[
             'name.required' => 'A név megadása kötelező.',
         'name.regex' => 'A név csak betűket és szóközöket tartalmazhat.',
@@ -26,7 +29,9 @@ class CustomerController extends Controller
         'password.required' => 'A jelszó megadása kötelező.',
         'password.min' => 'A jelszónak legalább :min karakter hosszúnak kell lennie.',
         'password.confirmed' => 'A jelszó megerősítése nem egyezik.',
-        'address.required' => 'A cím megadása kötelező.'
+        'address.required' => 'A cím megadása kötelező.',
+        'role.required' => 'A szerep megadása kötelező.',
+        'role.in' => 'A szerep érvénytelen.'
 
         
         ]);

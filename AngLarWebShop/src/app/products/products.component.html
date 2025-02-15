@@ -2,25 +2,76 @@
 
 
 
-<div class="gallery">
-  <div class="container-fluid mt-4text-center text-warning">
-    <h2 class="fw-bold">Product Gallery</h2>
-    <p>Explore our wide range of high-quality items.</p>
-
-    <div class="cards">
-      <div class="card" *ngFor="let product of products">
-        <!-- *ngIf="product.image_url" view only exists-->
-        <img *ngIf="product.image_url" [src]="product.image_url" alt="{{ product.title }}" class="card-img" />
-        <div class="card-body">
-
-          <h5 class="card-catergory">category: {{ product.category }}</h5>
-          <h5 class="card-title">title: {{ product.title }}</h5>
-          <p class="card-text"><strong>Price: {{ product.price}} Ft</strong></p>
-          <!-- <p *ngIf="itemAdded" class="text-success">✅ Added to cart!</p> -->
-          <button (click)="addToCart(product);showToast()" class="btn btn-warning">
-            <i class="bi bi-cart"></i> Add to Cart
-          </button>
+<!-- <div class="container mt-3">
+  <h2>Termékek</h2>
+  <div class="row">
+    <div class="col-md-3">
+      <h5>Kategóriák</h5>
+      <ul class="list-group">
+        <li class="list-group-item"><a href="?category=cipok">Cipők</a></li>
+        <li class="list-group-item"><a href="?category=tv">TV-k</a></li>
+        <li class="list-group-item"><a href="?category=eger">Egerek</a></li>
+      </ul>
+    </div>
+    <div class="col-md-9">
+      <div class="row">
+        <div class="col-md-4" *ngFor="let product of products">
+          <div class="card">
+            <img [src]="product.image_url" class="card-img-top">
+            <div class="card-body">
+              <h5 class="card-title">{{ product.title }}</h5>
+              <p class="card-text">{{ product.price | currency:'HUF ' }}</p>
+              <a href="#" class="btn btn-primary">Megnézem</a>
+            </div>
+          </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- <div class="filter-options">
+  <input [(ngModel)]="searchQuery" (input)="searchProducts()" placeholder="Search products..." /> -->
+
+<div class="filter-options">
+  <div class="input-group mb-3">
+    <span class="input-group-text">
+      <i class="bi bi-search"></i>
+    </span>
+    <input type="text" class="form-control" [(ngModel)]="searchQuery" (input)="searchProducts()"
+      placeholder="Keresés a termékek között..." />
+  </div>
+
+
+<!--
+
+  <div class="filters text-white text-center row mb-5">
+    <h4>Categories</h4>
+    <div *ngFor="let category of categories" class="col">
+      <input
+      type="checkbox"
+      [checked]="selectedCategories.includes(category.id)"
+      [value]="category.id"
+      (change)="toggleCategory(category.id)" />
+      {{ category.title }}
+    </div>
+  </div> -->
+
+
+
+<div class="filters text-white text-center mb-5">
+  <h4 class="mb-4 fw-bold text-warning fs-2">Categories</h4>
+  <div class="row row-cols-auto justify-content-center g-3">
+    <div class="col" *ngFor="let category of categories">
+      <div class="form-check">
+        <input class="form-check-input"
+          type="checkbox"
+          [checked]="selectedCategories.includes(category.id)"
+          [value]="category.id"
+          (change)="toggleCategory(category.id)" id="category{{category.id}}" />
+        <label class="form-check-label ms-1" for="category{{category.id}}">
+          {{ category.title }}
+        </label>
       </div>
     </div>
   </div>
@@ -28,8 +79,76 @@
 
 
 
+
+
+
+
+
+  <!-- <button (click)="sortByPrice('asc')">Sort by Price: Low to High</button>
+  <button (click)="sortByPrice('desc')">Sort by Price: High to Low</button> -->
+
+
+<div class="d-flex justify-content-center gap-2 mb-4">
+  <button (click)="sortByPrice('asc')" class="btn btn-warning">
+    <i class="bi bi-sort-numeric-down"></i> Ár szerint növekvő
+  </button>
+  <button (click)="sortByPrice('desc')" class="btn btn-warning">
+    <i class="bi bi-sort-numeric-up"></i> Ár szerint csökkenő
+  </button>
+</div>
+
+
+
+
+
+
+
+<!-- <div class="product-list">
+  <div class="product-card" *ngFor="let product of filteredProducts">
+    <img [src]="product.image_url" alt="{{ product.title }}" />
+    <h3>{{ product.title }}</h3>
+    <p>{{ product.category }}</p>
+    <p>Price: {{ product.price | currency }}</p>
+    <button (click)="addToCart(product)">Add to Cart</button>
+  </div>
+</div> -->
+
+
+
+
+<div class="gallery">
+  <div class="container-fluid mt-4text-center text-warning">
+    <h2 class="fw-bold">Product Gallery</h2>
+    <p>Explore our wide range of high-quality items.</p>
+
+    <div class="cards">
+      <div class="card" *ngFor="let product of filteredProducts">
+        <img [src]="product.image_url" alt="{{ product.title }}" class="card-img" />
+        <div class="card-body">
+          <h5 class="card-title">{{ product.category }}</h5>
+          <h5 class="card-title">{{ product.title }}</h5>
+
+<!--  -->
+<!-- részletes információk -->
+          <div *ngIf="product.showDetails">
+            <!-- <p>{{ product.longDescription }}</p> -->
+            <p>{{ product.description }}</p>
+            <p>Ár: {{ product.price|currency:'HUF' }}</p>
+            <!-- további részletes információk -->
+          </div>
+<!--  -->
+          <p class="card-text"><strong>Price: {{ product.price | currency: 'HUF' }}</strong></p>
+          <!-- <p *ngIf="itemAdded" class="text-success">✅ Added to cart!</p> -->
+          <button (click)="addToCart(product);showToast()" class="btn btn-warning"><i class="bi bi-cart"></i> Add to Cart</button>
+          <!-- <button (click)="viewProduct(product);" class="btn btn-success"><i class="bi bi-cart"></i> Megnézem</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- Toast üzenet -->
-<div *ngIf="show" class="toast-container position-fixed top-0 end-0 mx-auto p-5" style="z-index: 1050;margin-top: -40px;width:220px;">
+<div *ngIf="show" class="toast-container position-fixed top-0 end-0 mx-auto p-5"
+  style="z-index: 1050;margin-top: -40px;width:220px;">
   <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
 
     <div class="toast-body">

@@ -29,4 +29,9 @@ class Customer extends Model
     {
         $this->attributes['password'] = bcrypt($password);
     }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
 }

@@ -1,15 +1,16 @@
 <!-- <p>nav works!</p> -->
 
 
-<nav class="navbar navbar-expand-lg bg-warning sticky-top">
-  <div class="container-fluid container-tertiary">
+<nav class="navbar navbar-expand-lg bg-warning  sticky-top"> <!-- fixed-top mobil esetén?-->
+  <div class="container-fluid container-tertiary"> <!-- -fluid tertiary-->
+
     <a class="navbar-brand fs-4 fw-bold mx-auto col" routerLink="/">AngLar WebShop</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav col">
+    <div class="collapse navbar-collapse " id="navbarNav">
+      <ul class="navbar-nav col ">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" routerLink="/home" routerLinkActive="active" (click)="closeMenu()">Home</a>
         </li>
@@ -30,7 +31,6 @@
         </li>
         <li class="nav-item">
           <a class="nav-link text-black" routerLink="/contact" routerLinkActive="active" (click)="closeMenu()">Contact</a>
-        </li>
         <li class="nav-item">
           <a class="nav-link text-black" routerLink="/pets" routerLinkActive="active" (click)="closeMenu()">Pets</a>
         </li>
@@ -38,12 +38,14 @@
           <a class="nav-link text-black text-end ms-auto fs-3 position-relative" routerLink="/cart"
             routerLinkActive="active" (click)="closeMenu()">
             <i class="bi bi-cart"></i> Cart
-            <span *ngIf="cartItemCount > 0" class="badge bg-danger position-absolute top-0 start-100 px-1 translate-middle rounded-pill">
+            <span *ngIf="cartItemCount > 0"
+              class="badge bg-danger position-absolute top-0 start-100 px-1 translate-middle rounded-pill">
               {{ cartItemCount }}
             </span>
           </a>
         </li>
       </ul>
+
     </div>
   </div>
 </nav>

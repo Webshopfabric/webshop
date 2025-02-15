@@ -1,16 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from './category.service';
 import { Category } from './category';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-category',
-  templateUrl: './category.component.html',
-  styleUrls: ['./category.component.css']
+  template: `
+    <div *ngIf="categories">
+      <h2>Categories</h2>
+      <ul>
+        <li *ngFor="let category of categories">
+          {{category.title}}
+        </li>
+      </ul>
+      <button *ngIf="!creatingCategory" (click)="createCategory()">Add Category</button>
+      <div *ngIf="creatingCategory">
+        <input [(ngModel)]="newCategory.title" placeholder="Category name">
+        <button (click)="saveCategory()">Save</button>
+      </div>
+    </div>
+  `,
+  styleUrls: ['./category.component.css'],
+  standalone: true,
+  imports: [CommonModule, FormsModule]
 })
 export class CategoryComponent implements OnInit {
-  categories: Category[];
+  categories!: Category[];
   creatingCategory = false;
-  newCategory: Category;
+  newCategory: Category = new Category();
 
   constructor(private categoryService: CategoryService) { }
 
@@ -19,7 +37,7 @@ export class CategoryComponent implements OnInit {
   }
 
   getCategories(): void {
-    this.categoryService.getCategories().subscribe(categories => {
+    this.categoryService.getCategories().subscribe((categories: Category[]) => {
       this.categories = categories;
     });
   }
@@ -30,7 +48,7 @@ export class CategoryComponent implements OnInit {
   }
 
   saveCategory(): void {
-    this.categoryService.createCategory(this.newCategory).subscribe(category => {
+    this.categoryService.createCategory(this.newCategory).subscribe((category: Category) => {
       this.categories.push(category);
       this.creatingCategory = false;
     });

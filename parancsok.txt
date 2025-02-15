@@ -12,7 +12,7 @@ adatbázis név:laravel_10_db
 user: root
 pw: nincs
 
-php artisan key:genetate
+php artisan key:generate
 php artisan serve
 
 Ha mind a kettő beindult, és a xampp mysql-be

@@ -43,4 +43,33 @@ Route::get('/customers', [CustomerController::class, 'getAllCustomers']);
 
 use App\Http\Controllers\CategoryController;
 Route::get('/categories', [CategoryController::class, 'index']);
+Route::post('/categories',[CategoryController::class,'store']);
+Route::get('/categories/{id}', [CategoryController::class, 'show']);
+Route::put('/categories/{id}', [CategoryController::class, 'update']);
+Route::delete('/categories/{id}', [CategoryController::class, 'destroy']);
 
+use App\Http\Controllers\OrderController;
+
+Route::get('/orders', [OrderController::class, 'index']);
+Route::post('/orders', [OrderController::class, 'store']);
+Route::get('/orders/{id}', [OrderController::class, 'show']);
+Route::put('/orders/{id}', [OrderController::class, 'update']);
+Route::delete('/orders/{id}', [OrderController::class, 'destroy']);
+
+
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LoginController;
+
+Route::post('register', [RegisterController::class, 'register']);
+Route::post('login', [LoginController::class, 'login']);
+
+
+use App\Http\Controllers\TestController;
+
+Route::get('/send-test-email', [TestController::class, 'sendTestEmail']);
+
+use App\Http\Controllers\Auth\VerificationController;
+
+Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
+    ->middleware(['signed'])
+    ->name('email.verify');

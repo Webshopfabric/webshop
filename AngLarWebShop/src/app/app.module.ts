@@ -10,7 +10,6 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { AboutComponent } from './about/about.component';
-import { CategoriesComponent } from './categories/categories.component';
 import { FooterComponent } from './footer/footer.component';
 import { ContactComponent } from './contact/contact.component';
 import { AnimalGalleryComponent } from './animal-gallery/animal-gallery.component';
@@ -20,6 +19,13 @@ import { CartComponent } from './cart/cart.component';
 import { CartService } from './cart.service';
 import { CurrencyPipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { registerLocaleData } from '@angular/common';
+import localeHu from '@angular/common/locales/hu';
+import { LOCALE_ID } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { CategoryComponent } from './category/category.component';
+
+registerLocaleData(localeHu);
 
 @NgModule({
   declarations: [
@@ -29,22 +35,22 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     RegisterComponent,
     LoginComponent,
     AboutComponent,
-    CategoriesComponent,
     FooterComponent,
     ContactComponent,
     AnimalGalleryComponent,
     CartComponent,
-    ProductsComponent
-
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     HttpClientModule,
-    ReactiveFormsModule,FormsModule
+    ReactiveFormsModule, FormsModule,
+    CommonModule,
+    ProductsComponent,
+    CategoryComponent
   ],
-  providers: [AnimalService,ProductService,CartService,CurrencyPipe],
+  providers: [{ provide: LOCALE_ID, useValue: 'hu-HU' }, AnimalService, ProductService, CartService, CurrencyPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
