@@ -8,13 +8,18 @@ import { Observable, of } from 'rxjs';
 
 export class ProductService {
   // private apiUrl = 'https://fakestoreapi.com/products';  //?limit=10
-  private apiUrl = 'http://localhost:8000/api/products';  
-  // private apiUrl = 'http://localhost/test/AngLarBackend/public/api/products';  // build
+  private productsUrl = 'http://localhost:8000/api/products';
+  private categoriesUrl = 'http://localhost:8000/api/products';
+
+
 
   constructor(private http: HttpClient) {}
 
-  getProducts(): Observable<any> {
-    return this.http.get<any>(this.apiUrl);
-  }
 
+  getProducts(): Observable<any> {
+    return this.http.get<any>(this.productsUrl);
+  }
+  getCategories(): Observable<any> {
+    return this.http.get<any>(this.categoriesUrl);
+  }
 }

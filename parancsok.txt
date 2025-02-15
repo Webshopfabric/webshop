@@ -5,14 +5,17 @@ ng serve -o
 
 Laravel:
 cd AngLarBackend
-compose install
-.env:
-mysql
-laravel_10_db
+composer install
+.env: módositani kell
+adatbázis:mysql
+adatbázis név:laravel_10_db
+user: root
+pw: nincs
 
 php artisan key:genetate
 php artisan serve
 
-
+Ha mind a kettő beindult, és a xampp mysql-be
+az adatok be vannak inportálva, termékek láthatók.
 
 
