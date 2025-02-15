@@ -5,10 +5,10 @@ ng serve -o
 
 Laravel:
 cd AngLarBackend
-compose install
+composer install
 .env: módositani kell
-mysql
-adatbazis név:laravel_10_db
+adatbázis:mysql
+adatbázis név:laravel_10_db
 user: root
 pw: nincs
 
