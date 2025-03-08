@@ -1,14 +1,13 @@
-// auth.service.ts
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthService {
+<<<<<<< HEAD
   private apiUrl = 'http://localhost:8000/api'; // Laravel API URL
   private isAdminSubject = new BehaviorSubject<boolean>(false);
   isAdmin$ = this.isAdminSubject.asObservable();
@@ -23,9 +22,14 @@ export class AuthService {
       this.isAdminSubject.next(storedRole === 'admin');
     }
   }
+=======
+  private apiUrl = 'http://localhost:8000/users'; // JSON Server API
+
+  constructor(private http: HttpClient) {}
+>>>>>>> 717d3d675d98acc0369456deb385d32d621329c0
 
   register(userData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, userData);
+    return this.http.post(this.apiUrl, userData); // Felhasználó létrehozása
   }
 
   setRole(role: 'admin' | 'customer'): void {
