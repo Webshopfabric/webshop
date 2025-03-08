@@ -50,6 +50,7 @@
 
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -58,34 +59,29 @@ import { AuthService } from '../auth.service';
 })
 export class RegisterComponent {
   email: string = '';
-  password:string = '';
+  password: string = '';
   confirmPassword: string = '';
   errorMessage: string = '';
   successMessage: string = '';
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit() {
-    // Validáció
     if (!this.email || !this.password || !this.confirmPassword) {
       this.errorMessage = 'Minden mezőt ki kell tölteni!';
-      this.successMessage = '';
       return;
     }
 
     if (this.password !== this.confirmPassword) {
       this.errorMessage = 'A jelszavak nem egyeznek!';
-      this.successMessage = '';
       return;
     }
 
     if (!this.validateEmail(this.email)) {
       this.errorMessage = 'Érvénytelen email formátum!';
-      this.successMessage = '';
       return;
     }
 
-    // Regisztrációs adatok elküldése a backendnek
     const userData = {
       email: this.email,
       password: this.password,
@@ -94,9 +90,13 @@ export class RegisterComponent {
 
     this.authService.register(userData).subscribe(
       (response) => {
-        this.successMessage = 'Sikeres regisztráció!';
+        this.successMessage = 'Sikeres regisztráció! Kérjük, ellenőrizd az e-mailed!';
         this.errorMessage = '';
-        // További műveletek, pl. átirányítás
+
+        // Átirányítás a login oldalra 3 másodperc múlva
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 3000);
       },
       (error) => {
         this.errorMessage = 'Hiba történt a regisztráció során.';
