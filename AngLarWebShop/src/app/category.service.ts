@@ -1,38 +1,45 @@
+// getCategories(): Observable<any> {
+//   return this.http.get<any>(this.categoriesUrl);
+// }
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-
-export class Category {
-  id?: number;
-  title?: string;
-  description?: string;
-}
-
-
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CategoryService {
-  private categoriesUrl = 'http://localhost:8000/categories';
+  private baseUrl0 = 'http://localhost:8000/api';  // Alap API URL local
+  private baseUrl = 'http://www.anglar.testhosting.hu/project10/public/api';
+
+  
+  private categoriesUrl = `${this.baseUrl}/categories`; // Kategória végpontok
 
   constructor(private http: HttpClient) { }
 
-  getCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>(this.categoriesUrl);
+  // GET /api/categories - Összes kategória lekérése
+  getCategories(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/categories`);
   }
 
-  getCategory(id: number): Observable<Category> {
-    return this.http.get<Category>(`${this.categoriesUrl}/${id}`);
+  // POST /api/category - Új kategória létrehozása
+  createCategory(title: string, description: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/categories`, { title, description });
   }
 
-  createCategory(category: Category): Observable<Category> {
-    return this.http.post<Category>(this.categoriesUrl, category);
+  // PUT /api/category/{id} - Kategória módosítása
+  updateCategory(id: number, title: string, description: string): Observable<any> {
+    return this.http.put(`${this.baseUrl}/categories/${id}`, { title, description });
   }
 
-  updateCategory(category: Category): Observable<Category> {
-    return this.http.put<Category>(`${this.categoriesUrl}/${category.id}`, category);
+  // DELETE /api/category/{id} - Kategória törlése
+  deleteCategory(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/categories/${id}`);
   }
 
-  deleteCategory(category: Category): Observable<Category> {
-    return this.http.delete<Category>(`${this.categoriesUrl}/${category.id}`);
+  // GET /api/category/{id} - Egy kategória lekérése
+  getCategory(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/categories/${id}`);
   }
 }

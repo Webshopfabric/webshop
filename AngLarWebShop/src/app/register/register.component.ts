@@ -58,7 +58,7 @@ import { AuthService } from '../auth.service';
 })
 export class RegisterComponent {
   email: string = '';
-  password:string = '';
+  password: string = '';
   confirmPassword: string = '';
   errorMessage: string = '';
   successMessage: string = '';

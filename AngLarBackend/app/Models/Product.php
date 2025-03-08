@@ -4,15 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Product extends Model
 {
     use HasFactory;
 
-    // A tábla neve, ha nem az alapértelmezett 'products' tábla lenne
+    // Az adatbázis tábla neve (opcionális, csak ha más lenne, mint 'products')
     protected $table = 'products';
 
-    // Azok a mezők, amik tömeges hozzárendeléssel (mass assignment) kitölthetők
+    // Engedélyezett tömeges kitöltésű mezők
     protected $fillable = [
         'category_id',
         'title',
@@ -26,29 +27,21 @@ class Product extends Model
         'is_active',
     ];
 
-    // A slug mező automatikus generálásához (SEO barát URL)
-    public static function boot()
+    // Kapcsolat a kategóriával (Egy termék egy kategóriához tartozik)
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    // Slug automatikus generálása, de csak létrehozáskor!
+    protected static function boot()
     {
         parent::boot();
 
-        static::saving(function ($product) {
-            // Ha nincs megadva slug, automatikusan generálunk egyet
-            if (empty($product->slug)) {
-                $product->slug = \Str::slug($product->title);
-            }
+        static::creating(function ($product) {
+                $product->slug = Str::slug($product->title);
+            
         });
     }
-
-    // Kapcsolat a kategóriával
-    public function category()
-    {
-        return $this->belongsTo(Category::class)->select('id', 'title','description'); // Csak az id-t és a title-t kérjük
-        // return $this->belongsTo(Category::class);
-    }
-
-    // Akciós ár ellenőrzése
-    public function hasDiscount()
-    {
-        return $this->discount_price !== null && $this->discount_price < $this->price;
-    }
 }
+

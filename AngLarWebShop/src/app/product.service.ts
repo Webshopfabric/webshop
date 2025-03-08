@@ -1,52 +1,60 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-
 export class ProductService {
-  // private apiUrl = 'https://fakestoreapi.com/products';  //?limit=10  // kezdeti teszt volt
-
-  private apiUrl = 'http://localhost:8000/api/products';
-
-  // private categoriesUrl = 'http://localhost:8000/api/categories';
-  // private productsUrl = 'http://localhost:8000/api/products';
-
-  private categoriesUrl = 'http://www.anglar.testhosting.hu/project10/public/api/categories';
-  private productsUrl = 'http://www.anglar.testhosting.hu/project10/public/api/products';
-
-
+  private baseUrl0 = 'http://localhost:8000/api';
+  private baseUrl = 'http://www.anglar.testhosting.hu/project10/public/api';
 
   constructor(private http: HttpClient) { }
 
+  // GET /api/products - Összes termék lekérése
   getProducts(): Observable<any> {
-
-    return this.http.get<any>(this.productsUrl);
+    return this.http.get(`${this.baseUrl}/products`);
   }
 
-  getCategories(): Observable<any> {
-    return this.http.get<any>(this.categoriesUrl);
-  }
+  // GET /api/product/{id} - Egy termék lekérése
   getProduct(id: number): Observable<any> {
-    const url = `${this.productsUrl}/${id}`;
-    return this.http.get<any>(url);
-
+    return this.http.get(`${this.baseUrl}/products/${id}`);
   }
 
+  // POST /api/product - Új termék létrehozása
+  createProduct(product: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/products`, product);
+  }
+
+  // PUT /api/product/{id} - Termék módosítása
+  updateProduct(id: number, product: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/products/${id}`, product);
+  }
+
+  // DELETE /api/product/{id} - Termék törlése
+  deleteProduct(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/products/${id}`);
+  }
+
+  // GET /api/products/category/{categoryId} - Kategória alapján szűrés
+  getProductsByCategory(categoryId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/products/category/${categoryId}`);
+  }
+
+  // GET /api/products/search/{query} - Termékek keresése
+  searchProducts(query: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/products/search/${query}`);
+  }
 }
 
+  // getCategories(): Observable<any[]> {
 
-
-// getProducts(): Observable<any[]> {
-
-//   return of([
-//     { title: 'Smartphone', description: 'A fast smartphone', price: 299, image: 'https://via.placeholder.com/150' },
-//     { title: 'Laptop', description: 'High performance laptop', price: 999, image: 'https://via.placeholder.com/150' },
-//     { title: 'Headphones', description: 'Noise-cancelling headphones', price: 199, image: 'https://via.placeholder.com/150' },
-//   ]);
-// }
+  //   return of([
+  //     { title: 'Vonós hangszer', description: '..........'},
+  //     { title: 'Fúvós hangszer', description: '..........'},
+  //     { title: 'Ütős hangszer', description: '..........'},
+  //   ]);
+  // }
 
 
 

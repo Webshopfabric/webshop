@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../cart.service';
+
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
@@ -23,15 +24,12 @@ export class NavComponent implements OnInit {
     this.cartItemCount = this.cartService.getCartItemCount();
   }
 
-
-
   closeMenu() {
     const navBar = document.getElementById('navbarNav');
     if (navBar) {
       navBar.classList.remove('show'); // Bezárjuk a menüt
     }
   }
-
 
   // Menü bezárása mobil nézetben
   // closeMenu() {
@@ -42,10 +40,6 @@ export class NavComponent implements OnInit {
   //    }
   //  }
   // }
-
-
-
-
 }
 
 

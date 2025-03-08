@@ -1,158 +1,238 @@
-<!-- <p>products works!</p> -->
-
-
-
-<!-- <div class="container mt-3">
-  <h2>Termékek</h2>
-  <div class="row">
-    <div class="col-md-3">
-      <h5>Kategóriák</h5>
-      <ul class="list-group">
-        <li class="list-group-item"><a href="?category=cipok">Cipők</a></li>
-        <li class="list-group-item"><a href="?category=tv">TV-k</a></li>
-        <li class="list-group-item"><a href="?category=eger">Egerek</a></li>
-      </ul>
+<!-- Customer nézet -->
+<div *ngIf="!isAdmin">
+  <div class="filter-options">
+    <div class="input-group mb-3">
+      <span class="input-group-text">
+        <i class="bi bi-search"></i>
+      </span>
+      <input type="text" class="form-control" [(ngModel)]="searchQuery" (input)="searchProducts()"
+        placeholder="Keresés a termékek között..." />
     </div>
-    <div class="col-md-9">
-      <div class="row">
-        <div class="col-md-4" *ngFor="let product of products">
-          <div class="card">
-            <img [src]="product.image_url" class="card-img-top">
+
+    <div class="filters text-white text-center mb-5">
+      <h4 class="mb-4 fw-bold text-warning fs-2">Categories
+      <button (click)="isAdmin_toggle()"></button></h4>
+      <div class="row row-cols-auto justify-content-center g-3">
+        <div class="col" *ngFor="let category of categories">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" [checked]="selectedCategories.includes(category.id)"
+              [value]="category.id" (change)="toggleCategory(category.id)" id="category{{category.id}}" />
+            <label class="form-check-label ms-1" for="category{{category.id}}">
+              {{ category.title }}
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-center gap-2 mb-4">
+      <button (click)="sortByPrice('asc')" class="btn btn-warning">
+        <i class="bi bi-sort-numeric-down"></i> Ár szerint növekvő
+      </button>
+      <button (click)="sortByPrice('desc')" class="btn btn-warning">
+        <i class="bi bi-sort-numeric-up"></i> Ár szerint csökkenő
+      </button>
+    </div>
+
+    <div class="gallery">
+      <div class="container-fluid mt-4 text-center text-warning">
+        <h2 class="fw-bold">Product Gallery</h2>
+        <p>Explore our wide range of high-quality items.</p>
+
+        <div class="cards">
+          <div class="card" *ngFor="let product of filteredProducts">
+            <img [src]="product.image_url || 'assets/placeholder.jpg'" alt="{{ product.title }}" class="card-img" />
             <div class="card-body">
+              <h5 class="card-title">{{ product.category }}</h5>
               <h5 class="card-title">{{ product.title }}</h5>
-              <p class="card-text">{{ product.price | currency:'HUF ' }}</p>
-              <a href="#" class="btn btn-primary">Megnézem</a>
+              <p class="card-text"><strong>Price: {{ product.price | currency: 'HUF':'symbol':'1.0' }}</strong></p>
+              <button (click)="addToCart(product);showToast()" class="btn btn-warning">
+                <i class="bi bi-cart"></i> Add to Cart
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div> -->
+</div>
 
-<!-- <div class="filter-options">
-  <input [(ngModel)]="searchQuery" (input)="searchProducts()" placeholder="Search products..." /> -->
-
-<div class="filter-options">
-  <div class="input-group mb-3">
-    <span class="input-group-text">
-      <i class="bi bi-search"></i>
-    </span>
-    <input type="text" class="form-control" [(ngModel)]="searchQuery" (input)="searchProducts()"
-      placeholder="Keresés a termékek között..." />
-  </div>
-
-
-<!--
-
-  <div class="filters text-white text-center row mb-5">
-    <h4>Categories</h4>
-    <div *ngFor="let category of categories" class="col">
-      <input
-      type="checkbox"
-      [checked]="selectedCategories.includes(category.id)"
-      [value]="category.id"
-      (change)="toggleCategory(category.id)" />
-      {{ category.title }}
+<!-- Admin nézet -->
+<div *ngIf="isAdmin">
+  <h1 class="text-center text-warning">Admin nézet</h1>
+  <div class="filter-options">
+    <div class="input-group mb-3">
+      <span class="input-group-text">
+        <i class="bi bi-search"></i>
+      </span>
+      <input type="text" class="form-control" [(ngModel)]="searchQuery" (input)="searchProducts()"
+        placeholder="Keresés a termékek között..." />
     </div>
-  </div> -->
 
-
-
-<div class="filters text-white text-center mb-5">
-  <h4 class="mb-4 fw-bold text-warning fs-2">Categories</h4>
-  <div class="row row-cols-auto justify-content-center g-3">
-    <div class="col" *ngFor="let category of categories">
-      <div class="form-check">
-        <input class="form-check-input"
-          type="checkbox"
-          [checked]="selectedCategories.includes(category.id)"
-          [value]="category.id"
-          (change)="toggleCategory(category.id)" id="category{{category.id}}" />
-        <label class="form-check-label ms-1" for="category{{category.id}}">
-          {{ category.title }}
-        </label>
+    <div class="filters text-white text-center mb-5">
+      <h4 class="mb-4 fw-bold text-warning fs-2">Categories
+      <button (click)="isAdmin_toggle()"></button></h4>
+      <div class="row row-cols-auto justify-content-center g-3">
+        <div class="col" *ngFor="let category of categories">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" [checked]="selectedCategories.includes(category.id)"
+              [value]="category.id" (change)="toggleCategory(category.id)" id="category{{category.id}}" />
+            <label class="form-check-label ms-1" for="category{{category.id}}">
+              {{ category.title }}
+            </label>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
+    <div class="d-flex justify-content-center gap-2 mb-4">
+      <button (click)="sortByPrice('asc')" class="btn btn-warning">
+        <i class="bi bi-sort-numeric-down"></i> Ár szerint növekvő
+      </button>
+      <button (click)="sortByPrice('desc')" class="btn btn-warning">
+        <i class="bi bi-sort-numeric-up"></i> Ár szerint csökkenő
+      </button>
+    </div>
 
+    <div class="gallery">
+      <div class="container-fluid mt-4 text-center text-warning">
+        <h2 class="fw-bold">Product Gallery</h2>
+        <p>Explore our wide range of high-quality items.</p>
 
-
-
-
-
-
-  <!-- <button (click)="sortByPrice('asc')">Sort by Price: Low to High</button>
-  <button (click)="sortByPrice('desc')">Sort by Price: High to Low</button> -->
-
-
-<div class="d-flex justify-content-center gap-2 mb-4">
-  <button (click)="sortByPrice('asc')" class="btn btn-warning">
-    <i class="bi bi-sort-numeric-down"></i> Ár szerint növekvő
-  </button>
-  <button (click)="sortByPrice('desc')" class="btn btn-warning">
-    <i class="bi bi-sort-numeric-up"></i> Ár szerint csökkenő
-  </button>
-</div>
-
-
-
-
-
-
-
-<!-- <div class="product-list">
-  <div class="product-card" *ngFor="let product of filteredProducts">
-    <img [src]="product.image_url" alt="{{ product.title }}" />
-    <h3>{{ product.title }}</h3>
-    <p>{{ product.category }}</p>
-    <p>Price: {{ product.price | currency }}</p>
-    <button (click)="addToCart(product)">Add to Cart</button>
-  </div>
-</div> -->
-
-
-
-
-<div class="gallery">
-  <div class="container-fluid mt-4text-center text-warning">
-    <h2 class="fw-bold">Product Gallery</h2>
-    <p>Explore our wide range of high-quality items.</p>
-
-    <div class="cards">
-      <div class="card" *ngFor="let product of filteredProducts">
-        <img [src]="product.image_url" alt="{{ product.title }}" class="card-img" />
-        <div class="card-body">
-          <h5 class="card-title">{{ product.category }}</h5>
-          <h5 class="card-title">{{ product.title }}</h5>
-
-<!--  -->
-<!-- részletes információk -->
-          <div *ngIf="product.showDetails">
-            <!-- <p>{{ product.longDescription }}</p> -->
-            <p>{{ product.description }}</p>
-            <p>Ár: {{ product.price|currency:'HUF' }}</p>
-            <!-- további részletes információk -->
+        <div class="cards">
+          <!-- Új termék hozzáadása -->
+          <div class="card">
+            <img [src]="newProduct.image_url || 'assets/placeholder.jpg'" alt="Új termék" class="card-img mb-1" />
+            <div class="card-body" style="padding: 1px;">
+              <div class="mb-1">
+                <div class="d-flex align-items-center">
+                  <label class="text-primary me-2 text-start" style="min-width: 70px; margin-left: 0;">Kategória</label>
+                  <select class="form-select flex-grow-1" style="min-width: 175px;" [(ngModel)]="newProduct.category_id">
+                    <option *ngFor="let category of categories" [value]="category.id">{{category.title}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="mb-1">
+                <div class="d-flex align-items-center">
+                  <label class="text-primary me-2 text-start" style="min-width: 70px; margin-left: 0;">Cím</label>
+                  <input type="text" class="form-control flex-grow-1" style="min-width: 175px;" [(ngModel)]="newProduct.title" />
+                </div>
+              </div>
+              <div class="mb-1">
+                <div class="d-flex align-items-center">
+                  <label class="text-primary me-2 text-start" style="min-width: 70px;">Leírás</label>
+                  <textarea class="form-control flex-grow-1" style="min-width: 175px;" [(ngModel)]="newProduct.description" rows="1"></textarea>
+                </div>
+              </div>
+              <div class="mb-1">
+                <div class="d-flex align-items-center">
+                  <label class="text-primary me-2 text-start" style="min-width: 70px;">Kép URL</label>
+                  <input type="text" class="form-control flex-grow-1" style="min-width: 175px;" [(ngModel)]="newProduct.image_url" />
+                </div>
+              </div>
+              <div class="mb-1">
+                <div class="d-flex align-items-center">
+                  <label class="text-primary me-2 text-start" style="min-width: 70px;">Ár</label>
+                  <input type="number" class="form-control flex-grow-1" style="min-width: 175px;" [(ngModel)]="newProduct.price" />
+                </div>
+              </div>
+              <div class="mb-1">
+                <div class="d-flex align-items-center">
+                  <label class="text-primary me-2 text-start" style="min-width: 70px;">Készlet</label>
+                  <input type="number" class="form-control flex-grow-1" style="min-width: 175px;" [(ngModel)]="newProduct.stock" />
+                </div>
+              </div>
+              <div class="mb-1">
+                <div class="d-flex align-items-center">
+                  <label class="text-primary me-2 text-start" style="min-width: 70px;">Aktív</label>
+                  <div class="form-check flex-grow-1" style="min-width: 175px;">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="newProduct.isActive">
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-end">
+                <button class="btn btn-primary" (click)="createProduct()">
+                  <i class="bi bi-plus-circle"></i> Hozzáadás
+                </button>
+              </div>
+            </div>
           </div>
-<!--  -->
-          <p class="card-text"><strong>Price: {{ product.price | currency: 'HUF' }}</strong></p>
-          <!-- <p *ngIf="itemAdded" class="text-success">✅ Added to cart!</p> -->
-          <button (click)="addToCart(product);showToast()" class="btn btn-warning"><i class="bi bi-cart"></i> Add to Cart</button>
-          <!-- <button (click)="viewProduct(product);" class="btn btn-success"><i class="bi bi-cart"></i> Megnézem</button> -->
+
+          <!-- Meglévő termékek -->
+          <div class="card" *ngFor="let product of filteredProducts">
+            <img [src]="product.image_url || 'assets/placeholder.jpg'" alt="{{ product.title }}" class="card-img mb-1" />
+            <div class="card-body" style="padding: 1px;">
+              <div class="mb-1">
+                <div class="d-flex align-items-center">
+                  <label class="text-primary me-2 text-start" style="min-width: 70px; margin-left: 0;">Kategória</label>
+                  <select class="form-select flex-grow-1" style="min-width: 175px;" [(ngModel)]="product.category_id">
+                    <option *ngFor="let category of categories" [value]="category.id">{{category.title}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="mb-1">
+                <div class="d-flex align-items-center">
+                  <label class="text-primary me-2 text-start" style="min-width: 70px; margin-left: 0;">Cím</label>
+                  <input type="text" class="form-control flex-grow-1" style="min-width: 175px;" [(ngModel)]="product.title" />
+                </div>
+              </div>
+              <div class="mb-1">
+                <div class="d-flex align-items-center">
+                  <label class="text-primary me-2 text-start" style="min-width: 70px;">Leírás</label>
+                  <textarea class="form-control flex-grow-1" style="min-width: 175px;" [(ngModel)]="product.description" rows="1"></textarea>
+                </div>
+              </div>
+              <div class="mb-1">
+                <div class="d-flex align-items-center">
+                  <label class="text-primary me-2 text-start" style="min-width: 70px;">Kép URL</label>
+                  <input type="text" class="form-control flex-grow-1" style="min-width: 175px;" [(ngModel)]="product.image_url" />
+                </div>
+              </div>
+              <div class="mb-1">
+                <div class="d-flex align-items-center">
+                  <label class="text-primary me-2 text-start" style="min-width: 70px;">Ár</label>
+                  <input type="number" class="form-control flex-grow-1" style="min-width: 175px;" [(ngModel)]="product.price" />
+                </div>
+              </div>
+              <div class="mb-1">
+                <div class="d-flex align-items-center">
+                  <label class="text-primary me-2 text-start" style="min-width: 70px;">Készlet</label>
+                  <input type="number" class="form-control flex-grow-1" style="min-width: 175px;" [(ngModel)]="product.stock" />
+                </div>
+              </div>
+              <div class="mb-1">
+                <div class="d-flex align-items-center">
+                  <label class="text-primary me-2 text-start" style="min-width: 70px;">Aktív</label>
+                  <div class="form-check flex-grow-1" style="min-width: 175px;">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="product.isActive" id="isActive{{product.id}}">
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex gap-2">
+                <button (click)="updateProduct(product)" class="btn btn-warning">
+                  <i class="bi bi-save"></i> Mentés
+                </button>
+                <button (click)="deleteProduct(product.id)" class="btn btn-danger">
+                  <i class="bi bi-trash"></i> Törlés
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
 <!-- Toast üzenet -->
 <div *ngIf="show" class="toast-container position-fixed top-0 end-0 mx-auto p-5"
   style="z-index: 1050;margin-top: -40px;width:220px;">
   <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
-
     <div class="toast-body">
       Added to Cart.
     </div>
   </div>
 </div>
+
+
+  

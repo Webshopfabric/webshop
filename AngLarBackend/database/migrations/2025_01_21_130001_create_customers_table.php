@@ -18,9 +18,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('role', ['customer', 'admin'])->default('customer'); // ENUM oszlop létrehozása
-            $table->text('address')->nullable();
+            $table->text('address');
             $table->string('phone',20)->nullable();
-            $table->rememberToken(); // Remember token oszlop leírásm
             $table->timestamps();
             // $table->string('role')->default('customer');
         });

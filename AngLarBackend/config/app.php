@@ -70,8 +70,8 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
-
+    // 'timezone' => 'UTC',    
+    'timezone' => env('APP_TIMEZONE', 'Europe/Budapest'),
     /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration

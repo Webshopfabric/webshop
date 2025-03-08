@@ -1,13 +1,12 @@
-
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../cart.service';
-import { CommonModule,CurrencyPipe } from '@angular/common';
-
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
-  styleUrl: './cart.component.css'
+  styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
 
@@ -67,7 +66,5 @@ checkout() {
     // this.clearCart(); // Kosár törlése
   }
 }
-
-
 
 }

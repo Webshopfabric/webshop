@@ -1,0 +1,67 @@
+<div class="cart-container container-fluid bg-white p-4">
+    <header class="text-center mb-4">
+        <h2 class="cart-title">Bevásárlókosár</h2>
+    </header>
+
+    <!-- Üres kosár üzenet -->
+    <div *ngIf="cartItems.length === 0" class="empty-cart-message py-4 text-muted">
+        A kosara üres.
+    </div>
+
+    <!-- Kosár tartalma -->
+    <div class="cart-items">
+        <div *ngFor="let item of cartItems" class="cart-item row align-items-center py-3 border-bottom">
+            <!-- Termék képe -->
+            <div class="col-2 col-md-1">
+                <img [src]="item.image_url" [alt]="item.title" class="product-image img-fluid rounded border"
+                    style="width: 60px; height: 60px; object-fit: cover;" loading="lazy">
+            </div>
+
+            <!-- Termék neve -->
+            <div class="col-5 text-start">
+                <h3 class="product-title fs-6 fw-bold mb-0">{{ item.title }}</h3>
+            </div>
+
+            <!-- Mennyiség szabályozó -->
+            <div class="col-2">
+                <div class="quantity-controls d-flex justify-content-center align-items-center gap-2">
+                    <button class="btn btn-outline-secondary btn-sm" (click)="decreaseQuantity(item)">
+                        <i class="bi bi-dash"></i>
+                    </button>
+                    <span class="quantity fw-bold">{{ item.quantity }}</span>
+                    <button class="btn btn-outline-secondary btn-sm" (click)="increaseQuantity(item)">
+                        <i class="bi bi-plus"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Ár -->
+            <div class="col-2 text-center">
+                <span class="price fw-bold">{{ item.price | currency:'HUF':true:'1.0-0'}}</span>
+            </div>
+
+            <!-- Törlés gomb -->
+            <div class="col-1 text-center">
+                <button class="btn btn-outline-danger btn-sm" (click)="removeItem(item)" title="Termék törlése">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Összesítés és műveletek -->
+    <footer class="cart-footer mt-4">
+        <p class="total-price fs-5 fw-bold">
+            Végösszeg: {{ getTotal() * 1 | currency:"HUF":true:'1.0-0'}}
+        </p>
+
+        <div class="cart-actions d-flex justify-content-center gap-3">
+            <button class="btn btn-outline-danger" (click)="clearCart()">
+                <i class="bi bi-trash me-2"></i>Kosár ürítése
+            </button>
+            <button class="btn btn-success" (click)="checkout()">
+                <i class="bi bi-check me-2"></i>Megrendelés
+            </button>
+        </div>
+    </footer>
+</div>
