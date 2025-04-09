@@ -1,0 +1,99 @@
+<!-- <p>category works!</p> -->
+
+<!-- <div class="m-5 text-aligment text-center">
+  <div class="container my-5">
+    <h1>Categories</h1>
+    <p>Select products</p>
+    <div *ngFor="let category of categories ">
+      {{category.title}}
+    </div>
+  </div>
+  </div> -->
+
+<!-- Customer nézet -->
+ <!-- !isadmin -->
+<div *ngIf="false" class="container mt-4">  
+  <div class="row">
+    <div class="col-12">
+      <h2 class="text-center text-warning mb-4">Kategóriák
+      <!-- <button (click)="isAdmin_toggle()"></button> -->
+    </h2>
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col" *ngFor="let category of categories">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">{{category.title}}</h5>
+              <p class="card-text">{{category.description}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Admin nézet -->
+<div *ngIf="isAdmin" class="container mt-4">   
+  <!-- Új kategória hozzáadása -->
+  <div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+      <h3 class="mb-0">Új kategória hozzáadása
+        <!-- <button (click)="isAdmin_toggle()"></button> -->
+      </h3>
+    </div>
+    
+    <div class="card-body">
+      <div class="row g-3">
+        <div class="col-md-5">
+          <input type="text" class="form-control" [(ngModel)]="newCategory.title" placeholder="Név">
+        </div>
+        <div class="col-md-5">
+          <input type="text" class="form-control" [(ngModel)]="newCategory.description" placeholder="Leírás">
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-warning w-100" (click)="saveCategory()">
+            <i class="bi bi-plus-circle"></i> Hozzáadás
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kategóriák listája -->
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      <h3 class="mb-0">Kategóriák kezelése</h3>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Név</th>
+              <th>Leírás</th>
+              <th>Műveletek</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let category of categories">
+              <td>
+                <input type="text" class="form-control" [(ngModel)]="category.title">
+              </td>
+              <td>
+                <input type="text" class="form-control" [(ngModel)]="category.description">
+              </td>
+              <td>
+                <button class="btn btn-warning btn-sm me-2" (click)="updateCategory(category.id, category.title, category.description)">
+                  <i class="bi bi-save"></i> Mentés
+                </button>
+                <button class="btn btn-danger btn-sm" (click)="deleteCategory(category.id)">
+                  <i class="bi bi-trash"></i> Törlés
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

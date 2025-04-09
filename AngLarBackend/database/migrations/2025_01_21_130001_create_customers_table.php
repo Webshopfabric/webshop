@@ -16,9 +16,11 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('verification_token')->nullable();
+            $table->string('password_reset_token')->nullable();
             $table->string('password');
             $table->enum('role', ['customer', 'admin'])->default('customer'); // ENUM oszlop létrehozása
-            $table->text('address');
+            $table->text('address')->nullable();
             $table->string('phone',20)->nullable();
             $table->timestamps();
             // $table->string('role')->default('customer');

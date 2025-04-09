@@ -13,9 +13,13 @@ return [
     |
     */
 
+    // 'defaults' => [
+    //     'guard' => 'web',
+    //     'passwords' => 'users',
+    // ],
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'users',
+        'passwords' => 'customers',
     ],
 
     /*
@@ -35,10 +39,17 @@ return [
     |
     */
 
+    // 'guards' => [
+    //     'web' => [
+    //         'driver' => 'session',
+    //         'provider' => 'users',
+    //     ],
+    // ],
+
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'customers',
         ],
     ],
 
@@ -59,16 +70,26 @@ return [
     |
     */
 
+    // 'providers' => [
+    //     'users' => [
+    //         'driver' => 'eloquent',
+    //         'model' => App\Models\User::class,
+    //     ],
+    //     'users' => [
+    //         'driver' => 'database',
+    //         'table' => 'users',
+    //     ],
     'providers' => [
-        'users' => [
+        'customers' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\Customer::class,
+        ],
+        'customers' => [
+            'driver' => 'database',
+            'table' => 'customers',
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+
     ],
 
     /*
@@ -90,14 +111,20 @@ return [
     |
     */
 
+    // 'passwords' => [
+    //     'users' => [
+    //     'provider' => 'users',
+    //     'table' => 'password_reset_tokens',
+    //     'expire' => 60, // Token érvényességi ideje percben
+    //     'throttle' => 60, // Új kérelem küldése közötti idő percben
+    // ],],
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
-            'table' => 'password_reset_tokens',
-            'expire' => 60,
-            'throttle' => 60,
-        ],
-    ],
+        'customers' => [
+        'provider' => 'customers',
+        'table' => 'password_reset_tokens',
+        'expire' => 60, // Token érvényességi ideje percben
+        'throttle' => 60, // Új kérelem küldése közötti idő percben
+    ],],
 
     /*
     |--------------------------------------------------------------------------

@@ -1,0 +1,68 @@
+<!-- <p>nav works!</p> -->
+
+
+<nav class="navbar navbar-expand-lg bg-warning sticky-top">
+  <div class="container-fluid container-tertiary">
+    <a class="navbar-brand me-5 fs-3 fw-bold mx-auto col" routerLink="/">AngLar<i class="bi bi-music-note"></i>WebShop </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav col">
+
+        <li class="nav-item">
+          <a class="nav-link active text-black fs-3" aria-current="page" routerLink="/home" routerLinkActive="active" (click)="closeMenu()">Home</a>
+        </li>
+        <li class="nav-item" *ngIf="isAdmin">
+          <a class="nav-link text-black fs-3" routerLink="/categories" routerLinkActive="active" (click)="closeMenu()">Categories</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-black fs-3" routerLink="/products" routerLinkActive="active" (click)="closeMenu()">Products</a>
+        </li>
+        <li class="nav-item" *ngIf="!isLoggedIn">
+          <a class="nav-link text-black fs-3" routerLink="/register" routerLinkActive="active" (click)="closeMenu()">Register</a>
+        </li>
+        <li class="nav-item" *ngIf="!isLoggedIn">
+          <a class="nav-link text-black fs-3" routerLink="/login" routerLinkActive="active" (click)="closeMenu()">Login</a>
+        </li>
+
+          <li class="nav-item">
+          <a class="nav-link text-black fs-3" routerLink="/about" routerLinkActive="active" (click)="closeMenu()">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-black fs-3" routerLink="/contact" routerLinkActive="active" (click)="closeMenu()">Contact</a>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link text-black fs-3" routerLink="/pets" routerLinkActive="active" (click)="closeMenu()">Pets</a>
+        </li> -->
+
+            <!-- <li class="nav-item" *ngIf="isLoggedIn">
+             <a class="nav-link text-black fs-3" routerLink="/logout"    routerLinkActive="active" (click)="closeMenu()">Logout</a>
+            </li> -->
+            <li class="nav-item" *ngIf="isLoggedIn">
+             <a class="nav-link text-black fs-3" (click)="logout()"    routerLinkActive="active" (click)="closeMenu()">Logout</a>
+            </li>
+
+            <!-- <li class="nav-item" *ngIf="isLoggedIn">
+             <a class="nav-link text-black fs-3" routerLink="/profile"    routerLinkActive="active" (click)="closeMenu()">Profile</a>
+            </li> -->
+            <li class="nav-item" *ngIf="customerName">
+              <span class="nav-link text-black fs-3">[{{ customerName }}]</span>
+            </li>
+            <li class="nav-item" *ngIf="isLoggedIn && !isAdmin">
+              <a routerLink="/cart" class="nav-link text-black btn btn-outline-dark text-end ms-auto position-relative  fs-3" (click)="closeMenu()">
+                <i class="bi bi-cart"></i>Cart
+                <span *ngIf="cartItemCount" class="position-absolute top-0 start-100 px-1 translate-middle badge rounded-pill bg-danger">
+                  {{ cartItemCount }}
+                </span>
+              </a>
+              </li>
+
+      </ul>
+      
+    </div>
+  </div>
+</nav>
+
+
